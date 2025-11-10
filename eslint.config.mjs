@@ -1,6 +1,8 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import simpleImortSort from "eslint-plugin-simple-import-sort";
+import unusedImports from "eslint-plugin-simple-import-sort";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -13,6 +15,21 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    plugins: {
+      "simple-import-sort": simpleImortSort,
+      "unused-imports": unusedImports,
+    },
+    rules: {
+      "simple-import-sort/imports": [
+        "warn",
+        {
+          groups: [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]],
+        },
+      ],
+      "simple-import-sort/exports": "warn",
+    },
+  },
 ]);
 
 export default eslintConfig;
