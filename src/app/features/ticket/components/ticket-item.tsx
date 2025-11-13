@@ -28,7 +28,7 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
         "max-w-[420px]": !isDetail,
       })}
     >
-      <Card key={ticket.id} className="w-full max-w-[420px]">
+      <Card key={ticket.id} className="w-full">
         <CardHeader>
           <CardTitle className="flex items-center gap-x-2">
             <span>{TICKET_ICONS[ticket.status]}</span>
