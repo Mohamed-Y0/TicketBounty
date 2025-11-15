@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎫 TicketBounty
 
-## Getting Started
+TicketBounty is a modern ticket-management application built with **Next.js 16** and **React 19**.
+The project emphasizes clean architecture, strong tooling, and a responsive, accessible UI.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+- ⚡ Next.js 16 (App Router)
+- ⚛️ React 19 with the new compiler
+- 🎨 TailwindCSS 4 for modern, scalable styling
+- 🌗 Theme switching with next-themes
+- 🗂️ Prisma ORM for database management
+- 🧱 Radix UI + Lucide Icons for accessible components
+- 🧼 Strict formatting with ESLint & Prettier
+- 🚀 Fast dev environment using TypeScript + tsx
+
+---
+
+## 🛠️ Tech Stack
+
+| Category           | Technologies                                                                 |
+| ------------------ | ---------------------------------------------------------------------------- |
+| **Framework**      | Next.js 16, React 19                                                         |
+| **Language**       | TypeScript                                                                   |
+| **Styling**        | TailwindCSS 4, Tailwind Merge, class-variance-authority, tw-animate-css      |
+| **UI Components**  | Radix UI, Lucide Icons                                                       |
+| **Theming**        | next-themes                                                                  |
+| **Database & ORM** | Prisma ORM, @prisma/client                                                   |
+| **Tooling**        | ESLint, Prettier, eslint-config-next, tsx                                    |
+| **Other**          | clsx, @radix-ui/react-slot, @radix-ui/react-label, @radix-ui/react-separator |
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/ticketbounty.git
+cd ticketbounty
+npm install
+```
+
+---
+
+## 🔧 Environment Variables
+
+Create a `.env` file:
+
+```
+DATABASE_URL="your_database_connection_string"
+```
+
+---
+
+## 🗃️ Prisma Setup
+
+```bash
+npm run postinstall      # Generates Prisma Client
+npx prisma migrate dev   # Runs migrations
+npm run prisma-seed      # Seeds the DB
+```
+
+---
+
+## ▶️ Running the Project
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📁 Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Script        | Description             |
+| ------------- | ----------------------- |
+| `dev`         | Start dev server        |
+| `build`       | Build for production    |
+| `start`       | Start production server |
+| `lint`        | Run ESLint              |
+| `lint:fix`    | Auto-fix lint issues    |
+| `type`        | Type-check only         |
+| `postinstall` | Prisma generate         |
+| `prisma-seed` | Seed database           |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
