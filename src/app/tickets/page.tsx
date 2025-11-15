@@ -1,15 +1,9 @@
 import { Suspense } from "react";
-import TicketCreateForm from "@/app/features/ticket/components/ticket-create-form";
+import TicketCreateFom from "@/app/features/ticket/components/ticket-create-form";
 import TicketList from "@/app/features/ticket/components/ticket-list";
+import CardCompact from "@/components/card-compact";
 import Heading from "@/components/Heading";
 import Spinner from "@/components/Spinner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 const TicketsPage = () => {
   return (
@@ -19,15 +13,12 @@ const TicketsPage = () => {
         description={"All your tickets at one place"}
       />
 
-      <Card className="w-full max-w-[420px] self-center">
-        <CardHeader>
-          <CardTitle>Create Ticket</CardTitle>
-          <CardDescription>A new ticket will be created</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TicketCreateForm />
-        </CardContent>
-      </Card>
+      <CardCompact
+        title="Create Ticket"
+        description="A new ticket will be created"
+        className="w-full max-w-[420px] self-center"
+        content={<TicketCreateFom />}
+      />
 
       <Suspense fallback={<Spinner />}>
         <TicketList />
