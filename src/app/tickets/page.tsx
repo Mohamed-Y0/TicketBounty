@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import TicketCreateFom from "@/app/features/ticket/components/ticket-create-form";
 import TicketList from "@/app/features/ticket/components/ticket-list";
+import TicketUpsertForm from "@/app/features/ticket/components/ticket-upsert-form";
 import CardCompact from "@/components/card-compact";
 import Heading from "@/components/Heading";
 import Spinner from "@/components/Spinner";
@@ -17,7 +17,7 @@ const TicketsPage = () => {
         title="Create Ticket"
         description="A new ticket will be created"
         className="w-full max-w-[420px] self-center"
-        content={<TicketCreateFom />}
+        content={<TicketUpsertForm />}
       />
 
       <Suspense fallback={<Spinner />}>
