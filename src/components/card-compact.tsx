@@ -5,21 +5,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "./ui/card";
 
 type CardCompactProps = {
   title: string;
   description: string;
-  content: React.ReactNode;
   className?: string;
+  content: React.ReactNode;
   footer?: React.ReactNode;
 };
 
 const CardCompact = ({
   title,
   description,
-  content,
   className,
+  content,
   footer,
 }: CardCompactProps) => {
   return (
@@ -29,9 +29,11 @@ const CardCompact = ({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>{content}</CardContent>
-      {footer && <CardFooter>{footer}</CardFooter>}
+      {footer && (
+        <CardFooter className="flex justify-between">{footer}</CardFooter>
+      )}
     </Card>
   );
 };
 
-export default CardCompact;
+export { CardCompact };
