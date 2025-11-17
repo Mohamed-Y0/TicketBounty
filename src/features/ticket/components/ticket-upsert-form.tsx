@@ -3,11 +3,13 @@
 import { Ticket } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
 import { useActionState } from "react";
-import { upsertTicket } from "@/app/features/ticket/actions/upsert-ticket";
 import FieldError from "@/components/form/field-error";
+import Form from "@/components/form/form";
 import SubmitButton from "@/components/form/submit-button";
+import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { upsertTicket } from "@/features/ticket/actions/upsert-ticket";
 
 type TicketUpsertFormProps = {
   ticket?: Ticket;
@@ -16,13 +18,12 @@ type TicketUpsertFormProps = {
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
   const [actionState, action] = useActionState(
     upsertTicket.bind(null, ticket?.id),
-    { message: "", fieldErrors: {} },
+    EMPTY_ACTION_STATE,
   );
 
   return (
-    <form action={action} className="flex flex-col gap-y-2">
+    <Form action={action} actionState={actionState}>
       {/* <Input name="id" type="hidden" defaultValue={(actionState.payload?.get('id') as string) ?? ticket.id} /> */}
-
       <Label htmlFor="title">Title</Label>
       <Input
         type="text"
@@ -33,7 +34,6 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         }
       />
       <FieldError actionState={actionState} name="title" />
-
       <Label htmlFor="content">Content</Label>
       <Textarea
         name="content"
@@ -43,11 +43,8 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         }
       />
       <FieldError actionState={actionState} name="content" />
-
       <SubmitButton label={ticket ? "Edit" : "Create"} />
-
-      {actionState.message}
-    </form>
+    </Form>
   );
 };
 
