@@ -5,16 +5,35 @@ The project emphasizes clean architecture, strong tooling, and a responsive, acc
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- ⚡ Next.js 16 (App Router)
-- ⚛️ React 19 with the new compiler
-- 🎨 TailwindCSS 4 for modern, scalable styling
-- 🌗 Theme switching with next-themes
-- 🗂️ Prisma ORM for database management
-- 🧱 Radix UI + Lucide Icons for accessible components
-- 🧼 Strict formatting with ESLint & Prettier
-- 🚀 Fast dev environment using TypeScript + tsx
+### 🎫 Ticket Management
+
+- **CRUD Operations**: Full support for creating, reading, updating, and deleting tickets
+- **Rich Text Content**: Support for detailed ticket descriptions
+- **Bounty System**: Monetary values with proper currency handling (stored in cents)
+- **Deadline Tracking**: Date picker for setting ticket deadlines
+
+### 🎨 UI/UX
+
+- **Interactive Forms**: Form validation with Zod schema validation
+- **Loading States**: Proper loading indicators and suspense boundaries
+- **Toast Notifications**: User feedback for actions
+
+### 🛠 Technical Implementation
+
+- **Type Safety**: Full TypeScript support throughout the application
+- **Server Actions**: Efficient form handling with server actions
+- **Reusable Components**: Modular UI components (Card, Form, Buttons, etc.)
+- **Currency Handling**: Utility functions for handling monetary values
+- **Form Management**: Custom form components with error handling
+
+### 📊 Data Management
+
+- **Prisma ORM**: Type-safe database queries
+- **Data Validation**: Server-side validation with Zod
+- **Optimistic Updates**: Smooth UI updates during data mutations
+- **Route Protection**: Proper error handling and 404 pages
 
 ---
 
