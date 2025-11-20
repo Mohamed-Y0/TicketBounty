@@ -12,10 +12,10 @@ const useActionFeedback = (
   actionState: ActionState,
   options: UseActionFeedbackOptions,
 ) => {
-  const prevUseActionState = useRef(undefined);
+  const prevUseActionState = useRef(actionState.timestamp);
 
   useEffect(() => {
-    if (prevUseActionState.current === actionState) return;
+    if (prevUseActionState.current === actionState.timestamp) return;
 
     if (actionState.status === "SUCCESS") {
       options.onSuccess?.({ actionState });
@@ -23,6 +23,8 @@ const useActionFeedback = (
     if (actionState.status === "ERROR") {
       options.onError?.({ actionState });
     }
+
+    prevUseActionState.current = actionState.timestamp;
   }, [actionState, options]);
 };
 

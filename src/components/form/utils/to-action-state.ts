@@ -5,18 +5,18 @@ export type ActionState = {
   message: string;
   payload?: FormData;
   fieldErrors: Record<string, string[]> | undefined;
-  timestap: number;
+  timestamp: number;
 };
 
 export const EMPTY_ACTION_STATE = {
   message: "",
   fieldErrors: {},
-  timestap: Date.now(),
+  timestamp: Date.now(),
 };
 
 export const fromErroToActionState = (
   error: unknown,
-  formData: FormData,
+  formData?: FormData,
 ): ActionState => {
   if (error instanceof ZodError) {
     // if validation eror with Zod, return first error message
@@ -25,7 +25,7 @@ export const fromErroToActionState = (
       message: "",
       fieldErrors: z.flattenError(error).fieldErrors,
       payload: formData,
-      timestap: Date.now(),
+      timestamp: Date.now(),
     };
   } else if (error instanceof Error) {
     // if another error instance, return error message - e.g. database error
@@ -34,7 +34,7 @@ export const fromErroToActionState = (
       message: error.message,
       fieldErrors: {},
       payload: formData,
-      timestap: Date.now(),
+      timestamp: Date.now(),
     };
   } else {
     // if not an error instance but something else crashed
@@ -44,7 +44,7 @@ export const fromErroToActionState = (
       message: "An unknown error occured.",
       fieldErrors: {},
       payload: formData,
-      timestap: Date.now(),
+      timestamp: Date.now(),
     };
   }
 };
@@ -53,5 +53,5 @@ export const toActionState = (
   status: ActionState["status"],
   message: string,
 ): ActionState => {
-  return { status, message, fieldErrors: {}, timestap: Date.now() };
+  return { status, message, fieldErrors: {}, timestamp: Date.now() };
 };
