@@ -33,8 +33,8 @@ const SubmitButton = ({
       size={size}
       className="capitalize"
     >
-      {pending && <LucideLoaderCircle className="h-4 w-4 animate-spin" />}
       {label}
+      {pending && <LucideLoaderCircle className="h-4 w-4 animate-spin" />}
       {pending || icon}
     </Button>
   );
