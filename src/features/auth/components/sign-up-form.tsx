@@ -13,19 +13,33 @@ const SignUpForm = () => {
 
   return (
     <Form actionState={actionState} action={action}>
-      <Input name="username" placeholder="username" />
+      <Input
+        name="username"
+        placeholder="username"
+        defaultValue={actionState.payload?.get("username") as string}
+      />
       <FieldError name="username" actionState={actionState} />
 
-      <Input name="email" placeholder="email" />
+      <Input
+        name="email"
+        placeholder="email"
+        defaultValue={actionState.payload?.get("email") as string}
+      />
       <FieldError name="email" actionState={actionState} />
 
-      <Input name="password" placeholder="password" type="password" />
+      <Input
+        name="password"
+        placeholder="password"
+        type="password"
+        defaultValue={actionState.payload?.get("password") as string}
+      />
       <FieldError name="password" actionState={actionState} />
 
       <Input
         name="confirmPassword"
         placeholder="confirmPassword"
         type="password"
+        defaultValue={actionState.payload?.get("confirmPassword") as string}
       />
       <FieldError name="confirmPassword" actionState={actionState} />
 
