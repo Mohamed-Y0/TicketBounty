@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getAuth } from "@/features/auth/actions/get-auth";
+import { getAuth } from "@/features/auth/queries/get-auth";
 import { lucia } from "@/lib/lucia";
 import { signInPath } from "@/paths";
 
