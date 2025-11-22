@@ -7,7 +7,7 @@ import ThemeSwitcher from "@/components/theme/theme-switcher";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { signOut } from "@/features/auth/actions/sign-out";
 import { useAuth } from "@/features/auth/hooks/use-auth";
-import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
+import { homePath, signInPath, signUpPath } from "@/paths";
 
 const Header = () => {
   const { user, isFetched } = useAuth();
@@ -15,21 +15,12 @@ const Header = () => {
   if (!isFetched) return null;
 
   const navItems = user ? (
-    <>
-      <Link
-        href={ticketsPath()}
-        className={buttonVariants({ variant: "default" })}
-      >
-        Tickets
-      </Link>
-
-      <form action={signOut}>
-        <SubmitButton
-          label="Sign Out"
-          icon={<LucideLogOut className="h-4 w-4" />}
-        />
-      </form>
-    </>
+    <form action={signOut}>
+      <SubmitButton
+        label="Sign Out"
+        icon={<LucideLogOut className="h-4 w-4" />}
+      />
+    </form>
   ) : (
     <>
       <Link
