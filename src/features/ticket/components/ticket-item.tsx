@@ -1,4 +1,4 @@
-import { Ticket } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import clsx from "clsx";
 import {
   LucideMoreVertical,
@@ -20,7 +20,9 @@ import { toCurrencyFromCent } from "@/lib/currency";
 import { ticketEditPath, ticketPath } from "@/paths";
 
 type TicketItemProps = {
-  ticket: Ticket;
+  ticket: Prisma.TicketGetPayload<{
+    include: { user: { select: { username: true } } };
+  }>;
   isDetail?: boolean;
 };
 
@@ -76,7 +78,9 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
           </span>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <p className="text-muted-foreground text-sm">{ticket.deadline}</p>
+          <p className="text-muted-foreground text-sm">
+            {ticket.deadline} By {ticket.user.username}
+          </p>
           <p className="text-muted-foreground text-sm">
             {toCurrencyFromCent(ticket.bounty)}
           </p>
