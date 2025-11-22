@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { CardCompact } from "@/components/card-compact";
+import { getAuth } from "@/features/auth/queries/get-auth";
+import { isOwner } from "@/features/auth/utils/is-owner";
 import { getTicket } from "@/features/queries/get-ticket";
 import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
 
@@ -10,9 +12,13 @@ type TicketEditPageProps = {
 };
 
 const TicketEditPage = async ({ params }: TicketEditPageProps) => {
+  const { user } = await getAuth();
   const ticket = await getTicket((await params).ticketId);
 
-  if (!ticket) notFound();
+  const isTicketFound = !!ticket;
+  const isTicketOwner = isOwner(user, ticket);
+
+  if (!isTicketFound || !isTicketOwner) notFound();
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
