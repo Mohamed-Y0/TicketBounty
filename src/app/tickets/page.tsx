@@ -2,14 +2,17 @@ import { Suspense } from "react";
 import { CardCompact } from "@/components/card-compact";
 import Heading from "@/components/Heading";
 import Spinner from "@/components/Spinner";
+import { getAuth } from "@/features/auth/queries/get-auth";
 import TicketList from "@/features/ticket/components/ticket-list";
 import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
 
-const TicketsPage = () => {
+const TicketsPage = async () => {
+  const { user } = await getAuth();
+
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Heading
-        title={"Tickets"}
+        title={"My Tickets"}
         description={"All your tickets at one place"}
       />
 
@@ -21,7 +24,7 @@ const TicketsPage = () => {
       />
 
       <Suspense fallback={<Spinner />}>
-        <TicketList />
+        <TicketList userId={user?.id} />
       </Suspense>
     </div>
   );
