@@ -66,6 +66,16 @@
       transform: translateY(0);
     }
   }
+
+  --animate-sidebar-from-left: animate-sidebar-from-left 0.5s ease-out;
+  @keyframes animate-sidebar-from-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 :root {
