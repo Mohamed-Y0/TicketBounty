@@ -18,8 +18,8 @@ import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import TicketMoreMenu from "@/features/ticket/components/ticket-more-menu";
 import { TICKET_ICONS } from "@/features/ticket/constatns";
-import { toCurrencyFromCent } from "@/lib/currency";
 import { ticketEditPath, ticketPath } from "@/paths";
+import { toCurrencyFromCent } from "@/utils/currency";
 
 type TicketItemProps = {
   ticket: Prisma.TicketGetPayload<{

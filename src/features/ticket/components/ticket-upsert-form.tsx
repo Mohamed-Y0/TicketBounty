@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { upsertTicket } from "@/features/ticket/actions/upsert-ticket";
-import { fromCent } from "@/lib/currency";
+import { fromCent } from "@/utils/currency";
 
 type TicketUpsertFormProps = {
   ticket?: Ticket;

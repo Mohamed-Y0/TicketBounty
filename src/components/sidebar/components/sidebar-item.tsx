@@ -1,29 +1,29 @@
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { closedClassName } from "@/components/sidebar/constants";
 import { NavItem } from "@/components/sidebar/types";
 import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 type SidebarItemProps = {
   isOpen: boolean;
+  isActive: boolean;
   navItem: NavItem;
 };
 
-const SidebarItem = ({ isOpen, navItem }: SidebarItemProps) => {
-  const path = usePathname();
-  const isActive = path === navItem.href;
-
+const SidebarItem = ({ isOpen, navItem, isActive }: SidebarItemProps) => {
   const Icon = navItem.icon;
 
   return (
     <>
+      {navItem.separator && <Separator />}
       <Link
         href={navItem.href}
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "group relative flex h-12 justify-start",
+          "group relative flex h-12",
           isActive && "bg-muted hover:bg-muted font-bold",
+          isOpen && "justify-start",
         )}
       >
         {<Icon className="h-5 w-5" />}

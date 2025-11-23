@@ -11,9 +11,9 @@ import {
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
 import { isOwner } from "@/features/auth/utils/is-owner";
-import { toCent } from "@/lib/currency";
 import { prisma } from "@/lib/prisma";
 import { signInPath, ticketPath, ticketsPath } from "@/paths";
+import { toCent } from "@/utils/currency";
 
 const upsertTicketSchema = z.object({
   title: z.string().min(1).max(191),
