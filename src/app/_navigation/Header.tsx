@@ -2,7 +2,7 @@
 
 import { LucideKanban } from "lucide-react";
 import Link from "next/link";
-import AccountDropdown from "@/components/account-dropdown";
+import AccountDropdown from "@/app/_navigation/account-dropdown";
 import ThemeSwitcher from "@/components/theme/theme-switcher";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/hooks/use-auth";
