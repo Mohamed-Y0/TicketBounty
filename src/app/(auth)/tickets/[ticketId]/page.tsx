@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { getTicket } from "@/features/queries/get-ticket";
 import TicketItem from "@/features/ticket/components/ticket-item";
+import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { homePath } from "@/paths";
 
 type TicketPageProps = {
