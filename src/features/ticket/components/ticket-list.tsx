@@ -1,12 +1,13 @@
 import Placeholder from "@/components/Placeholder";
-import SearchInput from "@/components/search-input";
 import TicketItem from "@/features/ticket/components/ticket-item";
+import TicketSearchInput from "@/features/ticket/components/ticket-search-input";
+import TicketSortSelect from "@/features/ticket/components/ticket-sort-select";
 import { getTickets } from "@/features/ticket/queries/get-tickets";
-import { SearchParams } from "@/features/ticket/search-params";
+import { ParsedSearchParams } from "@/features/ticket/search-params";
 
 type TicketListProps = {
   userId?: string;
-  searchParams: SearchParams;
+  searchParams: ParsedSearchParams;
 };
 
 const TicketList = async ({ userId, searchParams }: TicketListProps) => {
@@ -14,8 +15,14 @@ const TicketList = async ({ userId, searchParams }: TicketListProps) => {
 
   return (
     <div className="animate-fade-in-from-top flex flex-1 flex-col items-center gap-y-4">
-      <div className="w-full max-w-[420px]">
-        <SearchInput placeholder="Search Tickets.." />
+      <div className="flex w-full max-w-[420px] gap-x-2">
+        <TicketSearchInput placeholder="Search Tickets.." />
+        <TicketSortSelect
+          options={[
+            { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
+            { sortKey: "bounty", sortValue: "desc", label: "Bounty" },
+          ]}
+        />
       </div>
       {tickets.length ? (
         tickets.map((ticket) => <TicketItem key={ticket.id} ticket={ticket} />)

@@ -1,20 +1,20 @@
-import { SearchParams } from "@/features/ticket/search-params";
+import { ParsedSearchParams } from "@/features/ticket/search-params";
 import { prisma } from "@/lib/prisma";
 
 export const getTickets = async (
   userId: string | undefined,
-  searchParams: SearchParams,
+  searchParams: ParsedSearchParams,
 ) => {
   return await prisma.ticket.findMany({
     where: {
       userId,
       title: {
-        contains: searchParams.search,
+        contains: (await searchParams).search,
         mode: "insensitive",
       },
     },
     orderBy: {
-      createdAt: "desc",
+      [(await searchParams).sortKey]: (await searchParams).sortValue,
     },
     include: {
       user: { select: { username: true } },
