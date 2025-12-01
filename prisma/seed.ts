@@ -39,9 +39,9 @@ const tickets = [
 ];
 
 const comments = [
-  { content: "First Ticket From Database." },
-  { content: "Second Ticket From Database." },
-  { content: "Third Ticket From Database." },
+  { content: "First Comment From Database." },
+  { content: "Second Comment From Database." },
+  { content: "Third Comment From Database." },
 ];
 
 const seed = async () => {
