@@ -6,7 +6,6 @@ import {
   LucideSquareArrowOutUpRight,
 } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,10 +14,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import Comments from "@/features/comment/components/comments";
+import { CommentWithMetadata } from "@/features/comment/types";
 import TicketMoreMenu from "@/features/ticket/components/ticket-more-menu";
 import { TICKET_ICONS } from "@/features/ticket/constatns";
 import { ticketEditPath, ticketPath } from "@/paths";
@@ -29,9 +28,10 @@ type TicketItemProps = {
     include: { user: { select: { username: true } } };
   }>;
   isDetail?: boolean;
+  comments?: CommentWithMetadata[];
 };
 
-const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
+const TicketItem = async ({ ticket, isDetail, comments }: TicketItemProps) => {
   const { user } = await getAuth();
   const isTicketOwner = isOwner(user, ticket);
 
@@ -110,19 +110,7 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
         </div>
       </div>
 
-      {isDetail && (
-        <Suspense
-          fallback={
-            <div className="flex flex-col gap-y-4">
-              <Skeleton className="h-[250px] w-full" />
-              <Skeleton className="ml-8 h-20" />
-              <Skeleton className="ml-8 h-20" />
-            </div>
-          }
-        >
-          <Comments ticketId={ticket.id} />
-        </Suspense>
-      )}
+      {isDetail && <Comments ticketId={ticket.id} comments={comments ?? []} />}
     </div>
   );
 };

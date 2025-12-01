@@ -4,14 +4,14 @@ import { isOwner } from "@/features/auth/utils/is-owner";
 import CommentCreateForm from "@/features/comment/components/comment-create-form";
 import CommentDeleteButton from "@/features/comment/components/comment-delete-button";
 import CommentItem from "@/features/comment/components/comment-item";
-import { getComments } from "@/features/comment/queries/get-comments";
+import { CommentWithMetadata } from "@/features/comment/types";
 
 type CommentsProps = {
   ticketId: string;
+  comments: CommentWithMetadata[];
 };
 
-const Comments = async ({ ticketId }: CommentsProps) => {
-  const comments = await getComments(ticketId);
+const Comments = async ({ ticketId, comments }: CommentsProps) => {
   const { user } = await getAuth();
 
   return (
