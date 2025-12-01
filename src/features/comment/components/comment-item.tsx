@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import CommentDeleteButton from "@/features/comment/components/comment-delete-button";
 import { CommentWithMetadata } from "@/features/comment/types";
 
 type CommentItemProps = {
