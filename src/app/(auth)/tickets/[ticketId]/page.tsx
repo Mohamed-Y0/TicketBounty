@@ -13,10 +13,8 @@ type TicketPageProps = {
 };
 
 const TicketPage = async ({ params }: TicketPageProps) => {
-  const searchParams = await params;
-
-  const ticketPromise = getTicket(searchParams.ticketId);
-  const commentsPromise = getComments(searchParams.ticketId);
+  const ticketPromise = getTicket((await params).ticketId);
+  const commentsPromise = getComments((await params).ticketId);
 
   const [ticket, comments] = await Promise.all([
     ticketPromise,
