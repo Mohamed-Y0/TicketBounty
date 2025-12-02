@@ -8,6 +8,7 @@ import {
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
+import { isOwner } from "@/features/auth/utils/is-owner";
 import { prisma } from "@/lib/prisma";
 import { ticketPath } from "@/paths";
 
@@ -22,14 +23,19 @@ export const createComment = async (
 ) => {
   const { user } = await getAuthOrRedirect();
 
+  let comment;
+
   try {
     const data = createCommentSchema.parse(Object.fromEntries(formData));
 
-    await prisma.comment.create({
+    comment = await prisma.comment.create({
       data: {
         userId: user.id,
         ticketId,
         ...data,
+      },
+      include: {
+        user: true,
       },
     });
   } catch (error) {
@@ -38,5 +44,8 @@ export const createComment = async (
 
   revalidatePath(ticketPath(ticketId));
 
-  return toActionState("SUCCESS", "Comment Created");
+  return toActionState("SUCCESS", "Comment Created", undefined, {
+    ...comment,
+    isOwner: true,
+  });
 };
