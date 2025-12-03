@@ -8,13 +8,11 @@ import CommentDeleteButton from "@/features/comment/components/comment-delete-bu
 import CommentItem from "@/features/comment/components/comment-item";
 import { getComments } from "@/features/comment/queries/get-comments";
 import { CommentWithMetadata } from "@/features/comment/types";
+import { PaginatedData } from "@/types/pagination";
 
 type CommentsProps = {
   ticketId: string;
-  paginatedComments: {
-    list: CommentWithMetadata[];
-    metadata: { count: number; hasNextPage: boolean; cursor?: string };
-  };
+  paginatedComments: PaginatedData<CommentWithMetadata>;
 };
 
 const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
