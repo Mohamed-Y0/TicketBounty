@@ -4,7 +4,6 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { CardCompact } from "@/components/card-compact";
-import { Button } from "@/components/ui/button";
 import CommentCreateForm from "@/features/comment/components/comment-create-form";
 import CommentDeleteButton from "@/features/comment/components/comment-delete-button";
 import CommentItem from "@/features/comment/components/comment-item";
