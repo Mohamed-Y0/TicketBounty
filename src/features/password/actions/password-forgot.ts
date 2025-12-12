@@ -6,6 +6,7 @@ import {
   fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
+import { SendEmailPasswordReset } from "@/features/password/emails/send-email-password-reset";
 import { generatePasswordResetLink } from "@/features/password/utils/generate-password-reset-link";
 import { prisma } from "@/lib/prisma";
 
@@ -30,8 +31,7 @@ export const passwordForgot = async (
 
     const passwordResetLink = await generatePasswordResetLink(user.id);
 
-    // TODO: send to the email
-    console.log(passwordResetLink);
+    await SendEmailPasswordReset(user.username, user.email, passwordResetLink);
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }

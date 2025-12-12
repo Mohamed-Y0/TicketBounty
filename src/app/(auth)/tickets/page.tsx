@@ -13,6 +13,7 @@ type TicketsPageProps = {
 };
 
 const TicketsPage = async ({ searhParams }: TicketsPageProps) => {
+  const params = await searhParams;
   const { user } = await getAuth();
 
   return (
@@ -32,7 +33,7 @@ const TicketsPage = async ({ searhParams }: TicketsPageProps) => {
       <Suspense fallback={<Spinner />}>
         <TicketList
           userId={user?.id}
-          searchParams={searchParamsCache.parse(searhParams)}
+          searchParams={searchParamsCache.parse(params)}
         />
       </Suspense>
     </div>

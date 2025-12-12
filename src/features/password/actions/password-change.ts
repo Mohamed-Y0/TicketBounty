@@ -8,6 +8,7 @@ import {
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
+import { SendEmailPasswordReset } from "@/features/password/emails/send-email-password-reset";
 import { generatePasswordResetLink } from "@/features/password/utils/generate-password-reset-link";
 import { verifyPasswordHash } from "@/features/password/utils/hash-and-verify";
 
@@ -19,24 +20,20 @@ export const passwordChange = async (
   _actionState: ActionState,
   formData: FormData,
 ) => {
-  const auth = await getAuthOrRedirect();
+  const { user } = await getAuthOrRedirect();
 
   try {
     const { password } = passwordChangeSchema.parse(
       Object.fromEntries(formData),
     );
 
-    const validPassword = await verifyPasswordHash(
-      auth.user.passwordHash,
-      password,
-    );
+    const validPassword = await verifyPasswordHash(user.passwordHash, password);
     if (!validPassword)
       return toActionState("ERROR", "Incorrect password", formData);
 
-    const passwordResetLink = await generatePasswordResetLink(auth.user.id);
+    const passwordResetLink = await generatePasswordResetLink(user.id);
 
-    // TODO: send to the email
-    console.log(passwordResetLink);
+    await SendEmailPasswordReset(user.username, user.email, passwordResetLink);
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }
