@@ -1,17 +1,18 @@
 "use server";
 
-import { verify } from "@node-rs/argon2";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import {
   ActionState,
-  fromErroToActionState,
+  fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
-import { lucia } from "@/lib/lucia";
+import { setSessionCookie } from "@/features/auth/utils/sesstion-cookite";
+import { verifyPasswordHash } from "@/features/password/utils/hash-and-verify";
+import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/paths";
+import { generateRandomToken } from "@/utils/crypto";
 
 const signInSchema = z.object({
   email: z.string().min(1, { message: "Is required" }).max(191).email(),
@@ -28,24 +29,22 @@ export const signIn = async (_actionState: ActionState, formData: FormData) => {
       where: { email },
     });
 
-    if (!user)
+    if (!user) {
       return toActionState("ERROR", "Incorrect email or password", formData);
+    }
 
-    const validPassword = await verify(user.passwordHash, password);
+    const validPassword = await verifyPasswordHash(user.passwordHash, password);
 
-    if (!validPassword)
+    if (!validPassword) {
       return toActionState("ERROR", "Incorrect email or password", formData);
+    }
 
-    const session = await lucia.createSession(user.id, {});
-    const sessionCookie = await lucia.createSessionCookie(session.id);
+    const sessionToken = generateRandomToken();
+    const session = await createSession(sessionToken, user.id);
 
-    (await cookies()).set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
+    await setSessionCookie(sessionToken, session.expiresAt);
   } catch (error) {
-    return fromErroToActionState(error, formData);
+    return fromErrorToActionState(error, formData);
   }
 
   redirect(ticketsPath());

@@ -1,16 +1,19 @@
 "use server";
 
-import { hash } from "@node-rs/argon2";
 import { Prisma } from "@prisma/client";
-import { cookies } from "next/headers";
-import z from "zod";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 import {
   ActionState,
-  fromErroToActionState,
+  fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
-import { lucia } from "@/lib/lucia";
+import { setSessionCookie } from "@/features/auth/utils/sesstion-cookite";
+import { hashPassword } from "@/features/password/utils/hash-and-verify";
+import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
+import { ticketsPath } from "@/paths";
+import { generateRandomToken } from "@/utils/crypto";
 
 const signUpSchema = z
   .object({
@@ -20,9 +23,9 @@ const signUpSchema = z
       .max(191)
       .refine(
         (value) => !value.includes(" "),
-        "Username connot contain spaces",
+        "Username cannot contain spaces",
       ),
-    email: z.string().min(1, { message: "Is Requierd" }).max(191).email(),
+    email: z.string().min(1, { message: "Is required" }).max(191).email(),
     password: z.string().min(6).max(191),
     confirmPassword: z.string().min(6).max(191),
   })
@@ -30,7 +33,7 @@ const signUpSchema = z
     if (password !== confirmPassword) {
       ctx.addIssue({
         code: "custom",
-        message: "Passwords do not match.",
+        message: "Passwords do not match",
         path: ["confirmPassword"],
       });
     }
@@ -42,20 +45,20 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
       Object.fromEntries(formData),
     );
 
-    const passwordHash = await hash(password);
+    const passwordHash = await hashPassword(password);
 
     const user = await prisma.user.create({
-      data: { username, email, passwordHash },
+      data: {
+        username,
+        email,
+        passwordHash,
+      },
     });
 
-    const session = await lucia.createSession(user.id, {});
-    const sessionCookie = await lucia.createSessionCookie(session.id);
+    const sessionToken = generateRandomToken();
+    const session = await createSession(sessionToken, user.id);
 
-    (await cookies()).set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
+    await setSessionCookie(sessionToken, session.expiresAt);
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -67,8 +70,9 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
         formData,
       );
     }
-    return fromErroToActionState(error, formData);
+
+    return fromErrorToActionState(error, formData);
   }
 
-  return toActionState("SUCCESS", "Sign Up Successful.");
+  redirect(ticketsPath());
 };

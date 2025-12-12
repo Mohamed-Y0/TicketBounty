@@ -6,7 +6,7 @@ import { z } from "zod";
 import { setCookieByKey } from "@/actions/cookies";
 import {
   ActionState,
-  fromErroToActionState,
+  fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
@@ -61,7 +61,7 @@ export const upsertTicket = async (
       create: dbData,
     });
   } catch (error) {
-    return fromErroToActionState(error, formData);
+    return fromErrorToActionState(error, formData);
   }
 
   revalidatePath(ticketsPath());

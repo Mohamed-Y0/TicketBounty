@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { setCookieByKey } from "@/actions/cookies";
 import {
-  fromErroToActionState,
+  fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
@@ -30,7 +30,7 @@ export const deleteTicket = async (id: string) => {
       where: { id },
     });
   } catch (error) {
-    return fromErroToActionState(error);
+    return fromErrorToActionState(error);
   }
 
   revalidatePath(ticketsPath());

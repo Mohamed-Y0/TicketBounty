@@ -3,7 +3,7 @@
 import { TicketStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import {
-  fromErroToActionState,
+  fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/getAuthOrRedirect";
@@ -34,7 +34,7 @@ export const updateTicketStatus = async (id: string, status: TicketStatus) => {
       },
     });
   } catch (error) {
-    return fromErroToActionState(error);
+    return fromErrorToActionState(error);
   }
 
   revalidatePath(ticketsPath());
