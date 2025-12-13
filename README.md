@@ -6,30 +6,30 @@ This is a full-stack ticket management application built with Next.js, Prisma, a
 
 This project provides a comprehensive set of features for a modern ticket management system:
 
-- **Secure User Authentication:**
-  - **Sign-up:** New users can create an account securely.
-  - **Sign-in:** Existing users can log in to access their tickets and profile.
-  - **Password Management:**
-    - **Change Password:** Authenticated users can change their password from their profile.
-    - **Forgot/Reset Password:** Users can request a password reset link via email, which is sent using **Resend** and **React Email**.
+-   **Secure User Authentication:**
+    -   **Sign-up:** New users can create an account securely.
+    -   **Sign-in:** Existing users can log in to access their tickets and profile.
+    -   **Password Management:**
+        -   **Change Password:** Authenticated users can change their password from their profile.
+        -   **Forgot/Reset Password:** Users can request a password reset link via email, which is sent using **Resend** and **React Email**.
 
-- **Complete Ticket Lifecycle Management (CRUD):**
-  - **Create Tickets:** Users can create new tickets with a title, description, and priority.
-  - **Read Tickets:** View a list of all tickets with pagination, or view a single ticket's details.
-  - **Update Tickets:** Edit existing tickets to change their status, priority, or content.
-  - **Delete Tickets:** Remove tickets that are no longer needed.
+-   **Complete Ticket Lifecycle Management (CRUD):**
+    -   **Create Tickets:** Users can create new tickets with a title, description, and priority.
+    -   **Read Tickets:** View a list of all tickets with pagination, or view a single ticket's details.
+    -   **Update Tickets:** Edit existing tickets to change their status, priority, or content.
+    -   **Delete Tickets:** Remove tickets that are no longer needed.
 
-- **Interactive Ticket Collaboration:**
-  - **Commenting System:** Users can add comments to tickets to provide updates or discuss the issue.
-  - **Ticket Status Updates:** Change the status of a ticket (e.g., Open, In Progress, Closed) to track its progress.
+-   **Interactive Ticket Collaboration:**
+    -   **Commenting System:** Users can add comments to tickets to provide updates or discuss the issue.
+    -   **Ticket Status Updates:** Change the status of a ticket (e.g., Open, In Progress, Closed) to track its progress.
 
-- **Advanced Ticket Filtering and Sorting:**
-  - **Search:** A debounced search input allows for quick filtering of tickets by title.
-  - **Sort:** Sort tickets by creation date or priority to easily find what you're looking for.
+-   **Advanced Ticket Filtering and Sorting:**
+    -   **Search:** A debounced search input allows for quick filtering of tickets by title.
+    -   **Sort:** Sort tickets by creation date or priority to easily find what you're looking for.
 
-- **Personalized User Experience:**
-  - **User Profile:** Manage your account information.
-  - **Dark Mode:** A theme switcher allows users to toggle between light and dark modes for comfortable viewing.
+-   **Personalized User Experience:**
+    -   **User Profile:** Manage your account information.
+    -   **Dark Mode:** A theme switcher allows users to toggle between light and dark modes for comfortable viewing.
 
 ## 🚀 Tech Stack
 
@@ -113,6 +113,21 @@ In the `package.json` file, you can find several scripts:
 - `prisma-seed`: Seeds the database with initial data.
 - `email`: Starts the React Email development server.
 
+## 📂 Project Structure
+
+```
+.
+├── prisma/               # Prisma schema, seeds
+├── public/               # Static assets
+├── src/
+│   ├── app/              # Next.js App Router: pages, layouts, API routes
+│   ├── components/       # Shared UI components
+│   ├── features/         # Feature-based modules (auth, tickets, comments)
+│   ├── lib/              # Core libraries and utilities (Prisma client, Lucia auth)
+│   └── paths.ts          # Centralized path definitions
+└── ...
+```
+
 ## 🌐 Deployment
 
-This project includes a `netlify.toml` file, making it ready for deployment on [Netlify](https://www.netlify.com/). You can also deploy it to other platforms that support Next.js.
+This project includes a `netlify.toml` file, making it ready for deployment on [Netlify](https://www.netlify.com/). You can also deploy it to other platforms that support Next.js, such as [Vercel](https://vercel.com/).
