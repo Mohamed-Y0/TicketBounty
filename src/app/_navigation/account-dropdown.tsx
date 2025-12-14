@@ -22,7 +22,7 @@ const AccountDropdown = ({ user }: AccountDropdownProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="cursor-pointer">
         <Avatar>
-          <AvatarFallback>{user.username[0].toUpperCase()}</AvatarFallback>
+          <AvatarFallback>{user?.username?.[0].toUpperCase()}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
