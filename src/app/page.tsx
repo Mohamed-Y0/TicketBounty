@@ -10,6 +10,7 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
+  const params = await searchParams;
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Heading
@@ -18,7 +19,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
       />
 
       <Suspense fallback={<Spinner />}>
-        <TicketList searchParams={searchParamsCache.parse(searchParams)} />
+        <TicketList searchParams={searchParamsCache.parse(params)} />
       </Suspense>
     </div>
   );
