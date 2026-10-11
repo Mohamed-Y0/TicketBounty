@@ -23,15 +23,20 @@ export const createSession = async (sessionToken: string, userId: string) => {
 export const validateSession = async (sessionToken: string) => {
   const sessionId = hashToken(sessionToken);
 
-  const result = await prisma.session.findUnique({
+const result = await prisma.session.findUnique({
     where: {
       id: sessionId,
     },
     include: {
-      user: true,
+      user: {
+        select: {
+          id: true,
+          email: true,
+          username: true,
+        },
+      },
     },
   });
-
   // if there is no session, return null
   if (!result) {
     return { session: null, user: null };
